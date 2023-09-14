@@ -7,7 +7,7 @@ export default {
 </script>
 
 <template>
-    <div>
+    <div class="col">
         <img :src="image" alt="">
     </div>
 </template>
