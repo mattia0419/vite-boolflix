@@ -9,11 +9,16 @@ export default {
         }
     },
     methods: {
-        fetchMovies(endPoint) {
-            axios.get(endPoint).then((response) => {
+        fetchMoviesSeries(endPointMovies, endPointSeries) {
+            axios.get(endPointMovies).then((response) => {
                 this.store.movies = response.data.results;
-                console.log(endPoint);
+                console.log(endPointMovies);
                 console.log(this.store.movies);
+            })
+            axios.get(endPointSeries).then((response) => {
+                this.store.series = response.data.results;
+                console.log(endPointSeries);
+                console.log(this.store.series);
             })
         },
     }
@@ -27,7 +32,8 @@ export default {
         </div>
         <div>
             <input type="text" placeholder="Cerca il tuo film preferito" v-model="keyWord">
-            <button @click="fetchMovies(store.apiUriMovies + store.apiKey + '&query=' + keyWord)">Cerca</button>
+            <button
+                @click="fetchMoviesSeries(store.apiUriMovies + store.apiKey + '&query=' + keyWord, store.apiUriSeries + store.apiKey + '&query=' + keyWord)">Cerca</button>
         </div>
     </header>
 </template>
