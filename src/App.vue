@@ -1,6 +1,7 @@
 <script>
 import { store } from './data/store';
 import AppHeader from './components/AppHeader.vue';
+import CardList from './components/CardList.vue';
 export default {
   data() {
     return {
@@ -8,7 +9,8 @@ export default {
     }
   },
   components: {
-    AppHeader
+    AppHeader,
+    CardList
   }
 }
 
@@ -22,6 +24,7 @@ export default {
       <h3>NESSUN RISULTATO</h3>
     </div>
   </div>
+  <CardList></CardList>
 </template>
 
 
