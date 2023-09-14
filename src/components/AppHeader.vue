@@ -1,6 +1,22 @@
 <script>
+import { store } from '../data/store';
+import axios from 'axios';
 export default {
-
+    data() {
+        return {
+            keyWord: '',
+            store
+        }
+    },
+    methods: {
+        fetchMovies(endPoint) {
+            axios.get(endPoint).then((response) => {
+                this.store.movies = response.data.results;
+                console.log(endPoint);
+                console.log(this.store.movies);
+            })
+        },
+    }
 }
 </script>
 
@@ -10,8 +26,8 @@ export default {
             <h1>BOOLFLIX</h1>
         </div>
         <div>
-            <input type="text" placeholder="Cerca il tuo film preferito">
-            <button>Cerca</button>
+            <input type="text" placeholder="Cerca il tuo film preferito" v-model="keyWord">
+            <button @click="fetchMovies(store.apiUriMovies + store.apiKey + '&query=' + keyWord)">Cerca</button>
         </div>
     </header>
 </template>
