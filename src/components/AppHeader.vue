@@ -9,7 +9,10 @@ export default {
         }
     },
     methods: {
-        fetchMoviesSeries(endPointMovies, endPointSeries) {
+        fetchMoviesSeries(keyword) {
+            const endPointMovies = store.apiUriMovies + store.apiKey + '&query=' + keyword;
+            const endPointSeries = store.apiUriSeries + store.apiKey + '&query=' + keyword;
+
             axios.get(endPointMovies).then((response) => {
                 this.store.movies = response.data.results;
                 console.log(endPointMovies);
@@ -32,8 +35,7 @@ export default {
         </div>
         <div>
             <input type="text" placeholder="Cerca il tuo film preferito" v-model="keyWord">
-            <button
-                @click="fetchMoviesSeries(store.apiUriMovies + store.apiKey + '&query=' + keyWord, store.apiUriSeries + store.apiKey + '&query=' + keyWord)">Cerca</button>
+            <button @click="fetchMoviesSeries(keyWord)">Cerca</button>
         </div>
     </header>
 </template>
