@@ -1,7 +1,27 @@
 <script>
 export default {
     props: {
-        image: String
+        image: String,
+        title: String,
+        plot: String,
+        language: String,
+        valutation: Number
+    },
+    computed: {
+        checkFlags() {
+            const flags = ['en', 'it'];
+            return flags.includes(this.language);
+        },
+        searchFlags() {
+            const urlFlag = new URL('../assets/img/' + this.language + '.png', import.meta.url);
+            return urlFlag.href;
+        }
+
+    },
+    methods: {
+        getStar(n) {
+            return n < this.valutation / 2 ? 'fa-solid fa-star' : 'fa-regular fa-star';
+        }
     }
 }
 </script>
@@ -12,8 +32,20 @@ export default {
             <div class="front">
                 <img :src="image" alt="">
             </div>
-            <div class="back bg-black">
+            <div class="back bg-black d-flex justify-content-center align-items-center text-center">
+                <h3>{{ title }}</h3>
+                <div v-if="checkFlags">
+                    <img :src="searchFlags" alt="">
+                </div>
+                <span>{{ valutation }}</span>
+                <div>
+                    <font-awesome-icon :icon="getStar(n)" v-for="n in 5" />
+                </div>
 
+                <div class="d-flex justify-content-center plot p-2">
+                    <h5>Trama</h5>
+                    <p>{{ plot }}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -23,6 +55,23 @@ export default {
 img {
     min-height: 100%;
     max-width: 100%;
+}
+
+.back {
+    img {
+        width: 16px;
+        aspect-ratio: 1;
+    }
+}
+
+.plot {
+    flex-direction: column;
+    align-items: center;
+}
+
+.back {
+    color: white;
+    flex-direction: column;
 }
 
 .bg-black {
@@ -91,5 +140,9 @@ img {
     transform: rotateY(180deg);
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
     width: 100%;
+}
+
+img {
+    max-width: 100%;
 }
 </style>
